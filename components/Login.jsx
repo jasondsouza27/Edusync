@@ -1,54 +1,79 @@
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import pb from "@/utils/mypb";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Login() {
-	const [id, setId] = useState();
-	const [pass, setPass] = useState();
+	const router = useRouter();
+	const [id, setId] = useState("");
+	const [pass, setPass] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
+	const [termsAccepted, setTermsAccepted] = useState(false);
+	const [isMounted, setIsMounted] = useState(false);
+
+	useEffect(() => {
+		setIsMounted(true);
+	}, []);
 
 	const login = async (e) => {
 		e.preventDefault();
+		setIsLoading(true);
+		
 		try {
 			const authData = await pb
-				.collection("users")
+				.collection("vlabs_users")
 				.authWithPassword(id, pass);
 
-			authData.token && window.location.replace("/");
+			if (authData.token) {
+				toast.success("Login successful! Redirecting...");
+				// Redirect to home page after a short delay
+				setTimeout(() => {
+					router.push("/");
+				}, 1000);
+			}
 		} catch (error) {
-			console.log(error.message);
-			toast.error("Invalid Credentials");
+			console.error(error);
+			toast.error("Invalid credentials. Please try again.");
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
 	return (
 		<>
-			<section className="bg-gray-50 dark:bg-gray-900">
-				<div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 mb-16">
-					<div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+			{isMounted && <ToastContainer 
+				position="top-right"
+				autoClose={3000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="light"
+			/>}
+			{/* Background similar to Hero component */}
+			<div
+				style={{ zIndex: "-1" }}
+				className="w-full opacity-30 bg-[url('/img/home/bits.avif')] bg-repeat-x bg-top md:bg-center bg-cover md:bg-contain h-screen flex items-center justify-center fixed top-0"
+			></div>
+			
+			<section className="relative min-h-screen">
+				<div className="flex flex-col items-center justify-center px-6 py-8 mx-auto min-h-screen">
+					<div className="w-full bg-white/95 backdrop-blur-sm rounded-lg shadow-xl md:mt-0 sm:max-w-md xl:p-0">
 						<div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-							<div className="flex justify-center">
-								<Link href="/" className="flex items-center">
-									<img
-										src="/img/crcelogo.jpg"
-										className="h-10 pr-3 border-r-2"
-									/>
-									<img
-										src="/img/logo-long.png"
-										className="h-10 mx-3"
-									/>
-								</Link>
-							</div>
-							<h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-								Login
+							<h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+								Login to Your Account
 							</h1>
-							<form className="space-y-4 md:space-y-6" action="#">
+							<form className="space-y-4 md:space-y-6" onSubmit={login}>
 								<div>
 									<label
-										for="email"
-										className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+										htmlFor="email"
+										className="block mb-2 text-sm font-medium text-gray-900"
 									>
 										Username or Email
 									</label>
@@ -60,15 +85,15 @@ export default function Login() {
 										type="text"
 										name="email"
 										id="email"
-										className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+										className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
 										placeholder="name@company.com"
-										required=""
+										required
 									/>
 								</div>
 								<div>
 									<label
-										for="password"
-										className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+										htmlFor="password"
+										className="block mb-2 text-sm font-medium text-gray-900"
 									>
 										Password
 									</label>
@@ -81,8 +106,8 @@ export default function Login() {
 										name="password"
 										id="password"
 										placeholder="••••••••"
-										className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-										required=""
+										className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
+										required
 									/>
 								</div>
 								<div className="flex items-start">
@@ -91,19 +116,22 @@ export default function Login() {
 											id="terms"
 											aria-describedby="terms"
 											type="checkbox"
-											className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-											required=""
+											checked={termsAccepted}
+											onChange={(e) => setTermsAccepted(e.target.checked)}
+											className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+											required
 										/>
 									</div>
 									<div className="ml-3 text-sm">
 										<label
-											for="terms"
-											className="font-light text-gray-500 dark:text-gray-300"
+											htmlFor="terms"
+											className="font-light text-gray-500"
 										>
 											I accept the{" "}
 											<a
-												className="font-medium text-blue-600 hover:underline dark:text-blue-500"
+												className="font-medium text-blue-600 hover:underline"
 												href="#"
+												onClick={(e) => e.preventDefault()}
 											>
 												Terms and Conditions
 											</a>
@@ -111,28 +139,27 @@ export default function Login() {
 									</div>
 								</div>
 								<button
-									onClick={login}
-									disabled={!(id && pass)}
+									disabled={!(id && pass && termsAccepted) || isLoading}
 									type="submit"
-									className="w-full disabled:opacity-50 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+									className="w-full disabled:opacity-50 disabled:cursor-not-allowed text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
 								>
-									Login
+									{isLoading ? (
+										<span className="flex items-center justify-center">
+											<svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+												<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+												<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+											</svg>
+											Logging in...
+										</span>
+									) : (
+										'Login'
+									)}
 								</button>
-								{/* <div className="my-7 justify-center flex rounded-lg">
-									<button className="hover:text-white hover:bg-blue-700 flex w-full justify-center items-center p-3 border border-blue-700 rounded-lg">
-										<img
-											className="h-5 mr-3"
-											src="/img/gLogo.png"
-											alt=""
-										/>
-										Login With Google
-									</button>
-								</div> */}
-								<p className="text-sm font-light text-gray-500 dark:text-gray-400">
+								<p className="text-sm font-light text-gray-500">
 									Don&apos;t have an account?{" "}
 									<Link
 										href="/register"
-										className="font-medium text-blue-600 hover:underline dark:text-blue-500"
+										className="font-medium text-blue-600 hover:underline"
 									>
 										Register here
 									</Link>

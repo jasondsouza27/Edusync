@@ -10,12 +10,12 @@ export default function Hands() {
 							<div className="">
 								Hands-On <br className="xl:block hidden" />{" "}
 								Education at <br className="xl:block hidden" />{" "}
-								CRCE
+								EduSync
 							</div>
 						</div>
 						<div className="mx-5 lg:mx-0 lg:text-xl xl:text-2xl">
 							<strong>
-								At CRCE, we firmly believe in the power of
+								At EduSync, we firmly believe in the power of
 								hands-on learning. We understand that true
 								knowledge is gained not just through theory but
 								by actively applying concepts in real-world

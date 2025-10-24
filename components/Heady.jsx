@@ -22,13 +22,25 @@ const Heady = () => {
 		<>
 			<nav className="bg-white border-gray-200">
 				<div className="flex flex-wrap items-center justify-between mx-auto p-2 sm:w-[80%] sm:p-4">
-					<Link href="/" className="flex items-center">
-						<img
-							src="/img/crcelogo.jpg"
-							className="h-10 pr-3 border-r-2"
-						/>
-						<img src="/img/logo-long.png" className="h-10 mx-3" />
-					</Link>
+					{isLoggedIn ? (
+						<Link href="/" className="flex items-center cursor-pointer">
+							<img
+								src="/img/edusynclogo.jpg"
+								className="h-14 pr-3 border-r-2"
+								alt="EduSync Logo"
+							/>
+							<img src="/img/logo-long.png" className="h-10 mx-3" alt="VLabs Logo" />
+						</Link>
+					) : (
+						<div className="flex items-center cursor-default">
+							<img
+								src="/img/edusynclogo.jpg"
+								className="h-14 pr-3 border-r-2"
+								alt="EduSync Logo"
+							/>
+							<img src="/img/logo-long.png" className="h-10 mx-3" alt="VLabs Logo" />
+						</div>
+					)}
 					{/* <button
 						data-collapse-toggle="navbar-default"
 						type="button"
@@ -126,43 +138,36 @@ const Heady = () => {
 						</svg>
 					</button>
 					<div
-						className="hidden w-full md:w-auto"
+						className="w-full md:w-auto flex md:flex"
 						id="navbar-default"
 					>
 						{!isLoggedIn ? (
-							<ul className="font-medium items-center flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+							<ul className="font-medium items-center flex flex-row gap-4 p-4 md:p-0 mt-4 md:mt-0 md:space-x-2">
 								<li>
 									<Link
 										href="/login"
-										className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+										className="block py-2 px-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border md:border-gray-300 md:hover:text-blue-700 md:hover:border-blue-700 transition-colors"
 									>
 										Login
 									</Link>
 								</li>
 								<li>
-									<button className="p-2 px-3 bg-blue-700 rounded-md text-center">
-										<Link
-											href="/register"
-											className="block py-2 pl-3 pr-4 text-white rounded md:border-0 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-										>
-											Register
-										</Link>
-									</button>
+									<Link
+										href="/register"
+										className="block py-2 px-4 bg-blue-700 text-white rounded hover:bg-blue-800 transition-colors"
+									>
+										Register
+									</Link>
 								</li>
 							</ul>
 						) : (
-							<ul className="font-medium items-center flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+							<ul className="font-medium items-center flex flex-row gap-4 p-4 md:p-0 mt-4 md:mt-0">
 								<li>
 									<button
 										onClick={logout}
-										className="p-2 px-3 bg-blue-700 rounded-md text-center"
+										className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
 									>
-										<Link
-											href="#"
-											className="block py-2 pl-3 pr-4 text-white rounded md:border-0 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-										>
-											Logout
-										</Link>
+										Logout
 									</button>
 								</li>
 							</ul>

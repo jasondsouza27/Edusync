@@ -6,7 +6,7 @@ export default function Footy() {
 			<footer className="bg-white shadow dark:bg-gray-800 w-full">
 				<div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
 					<span className="text-sm text-slate-800 sm:text-center dark:text-gray-400">
-						© 2023{" "}
+						© 2025{" "}
 						<a
 							href="https://flowbite.com/"
 							className="hover:underline"
@@ -16,9 +16,9 @@ export default function Footy() {
 						. Developed and Deployed by{" "}
 						<a
 							className="uline"
-							href="https://www.linkedin.com/in/joyvinmendonca/"
+							href="https://www.linkedin.com/in/jason-dsouza-5b278b334/"
 						>
-							Joyvin Mendonca
+							Jason Dsouza
 						</a>
 						.
 					</span>
