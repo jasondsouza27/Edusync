@@ -190,11 +190,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📄 License
 
 This project is licensed under the MIT License.
-
-## 👥 Authors
-
-- **Jason Dsouza** - Initial work
-
----
-
-**Made with ❤️ by Jason Dsouza**

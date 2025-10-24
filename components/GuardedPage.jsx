@@ -1,18 +1,17 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useRouter } from "next/router";
-import { isAuthenticated } from "@/utils/authService";
+import PocketBase from "pocketbase";
+
+const pb = new PocketBase(`${process.env.NEXT_PUBLIC_POCKETBASE_URL}`);
 
 export default function GuardedPage({ children }) {
 	const router = useRouter();
-	
-	const checkAuth = () => {
-		if (!isAuthenticated()) {
-			router.push("/login");
-		}
+	const isAuth = () => {
+		if (!pb.authStore.model?.id) router.push("/login");
 	};
 
-	useEffect(() => {
-		checkAuth();
+	useLayoutEffect(() => {
+		isAuth();
 	}, []);
 
 	return <>{children}</>;
