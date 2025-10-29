@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import useLabTimeTracker from "@/utils/useLabTimeTracker";
 
 export default function Simul() {
+	useLabTimeTracker("Loop Simulation", "C Programming");
 	const [size, setSize] = useState();
 
 	const makePattern = () => {

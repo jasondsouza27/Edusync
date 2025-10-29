@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import MatMultiply from "./MatMultiply";
 import MatTranspose from "./MatTranspose";
+import useLabTimeTracker from "@/utils/useLabTimeTracker";
 
 export default function Simul() {
+	useLabTimeTracker("Matrix Simulation", "C Programming");
 	const [type, setType] = useState("0");
 	return (
 		<>

@@ -1,7 +1,10 @@
 import { useState, useLayoutEffect } from "react";
 import Message from "@/components/Message";
+import useLabTimeTracker from "@/utils/useLabTimeTracker";
 
 export default function Simul() {
+	useLabTimeTracker("Bubble Sort Simulation", "Algorithms");
+	
 	const [data, setData] = useState(["", "", "", "", ""]);
 	const [currentIndex, setCurrentIndex] = useState();
 	const [lastIndex, setLastIndex] = useState();

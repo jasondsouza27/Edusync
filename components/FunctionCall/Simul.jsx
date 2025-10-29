@@ -1,8 +1,10 @@
 import SwapV from "./SwapV";
 import { useState } from "react";
 import SwapR from "./SwapR";
+import useLabTimeTracker from "@/utils/useLabTimeTracker";
 
 export default function Simul() {
+	useLabTimeTracker("Function Call Simulation", "C Programming");
 	const [type, setType] = useState("0");
 
 	return (

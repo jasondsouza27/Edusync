@@ -8,6 +8,7 @@ import ReactFlow, {
 	addEdge,
 	MarkerType,
 } from "reactflow";
+import useLabTimeTracker from "@/utils/useLabTimeTracker";
 
 import variable from "@/utils/variable";
 import "reactflow/dist/style.css";
@@ -18,6 +19,8 @@ const nodeTypes = {
 };
 
 export default function Factorial() {
+	useLabTimeTracker("Recursion Simulation", "C Programming");
+	
 	const [message, setMessage] = useState();
 	const [nodes, setNodes, onNodesChange] = useNodesState([]);
 	const [edges, setEdges, onEdgesChange] = useEdgesState([]);

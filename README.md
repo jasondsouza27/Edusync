@@ -4,6 +4,10 @@ A comprehensive virtual laboratory platform built with Next.js and PocketBase, p
 
 ## 🚀 Features
 
+- **Personal Dashboard**: Track your learning progress with detailed statistics
+  - View time spent on each lab
+  - See completed labs and activity history
+  - Monitor your learning journey with visual analytics
 - **Interactive Virtual Labs**: Hands-on simulations for data structures and algorithms
 - **Multiple Topics Covered**:
   - Data Structures (Stacks, Queues, Linked Lists, Binary Trees)
@@ -13,6 +17,7 @@ A comprehensive virtual laboratory platform built with Next.js and PocketBase, p
 - **User Authentication**: Secure login and registration system powered by PocketBase
 - **Real-time Testing**: Interactive tests and quizzes for each topic
 - **Theory & Practice**: Comprehensive theory sections with practical simulations
+- **Time Tracking**: Automatic tracking of time spent on each lab
 
 ## 🛠️ Tech Stack
 

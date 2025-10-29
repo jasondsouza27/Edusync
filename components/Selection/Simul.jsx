@@ -1,8 +1,11 @@
 import { useState, useLayoutEffect, useEffect } from "react";
 import Message from "@/components/Message";
 import { ChevronUp } from "lucide-react";
+import useLabTimeTracker from "@/utils/useLabTimeTracker";
 
 export default function Simul() {
+	useLabTimeTracker("Selection Sort Simulation", "Algorithms");
+	
 	const [data, setData] = useState(["", "", "", "", ""]);
 	const [currentIndex, setCurrentIndex] = useState();
 	const [isSorting, setIsSorting] = useState(false);

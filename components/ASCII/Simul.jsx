@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import useLabTimeTracker from "@/utils/useLabTimeTracker";
 
 export default function Simul() {
+	useLabTimeTracker("ASCII Simulation", "C Programming");
 	const [ch, setCh] = useState();
 
 	return (

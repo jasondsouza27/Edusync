@@ -163,6 +163,14 @@ const Heady = () => {
 						) : (
 							<ul className="font-medium items-center flex flex-row gap-4 p-4 md:p-0 mt-4 md:mt-0">
 								<li>
+									<Link
+										href="/dashboard"
+										className="block py-2 px-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border md:border-gray-300 md:hover:text-blue-700 md:hover:border-blue-700 transition-colors"
+									>
+										Dashboard
+									</Link>
+								</li>
+								<li>
 									<button
 										onClick={logout}
 										className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"

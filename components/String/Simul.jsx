@@ -3,8 +3,10 @@ import Strlen from "./Strlen";
 import Strcpy from "./Strcpy";
 import Strcmp from "./Strcmp";
 import { Listbox } from "@headlessui/react";
+import useLabTimeTracker from "@/utils/useLabTimeTracker";
 
 export default function Simul() {
+	useLabTimeTracker("String Simulation", "C Programming");
 	const [type, setType] = useState("0");
 
 	return (

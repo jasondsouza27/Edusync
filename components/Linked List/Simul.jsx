@@ -13,6 +13,7 @@ import array from "@/utils/array";
 import variable from "@/utils/variable";
 import "reactflow/dist/style.css";
 import Message from "../Message";
+import useLabTimeTracker from "@/utils/useLabTimeTracker";
 
 const nodeTypes = {
 	variableNode: variable,
@@ -38,6 +39,8 @@ const initNodes = [
 ];
 
 export default function LL() {
+	useLabTimeTracker("Linked List Simulation", "Data Structures");
+	
 	const [nodes, setNodes, onNodesChange] = useNodesState(initNodes);
 	const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 	const [message, setMessage] = useState();
